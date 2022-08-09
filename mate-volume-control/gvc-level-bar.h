@@ -23,57 +23,55 @@
 #ifndef __GVC_LEVEL_BAR_H
 #define __GVC_LEVEL_BAR_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define GVC_TYPE_LEVEL_BAR         (gvc_level_bar_get_type ())
-#define GVC_LEVEL_BAR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GVC_TYPE_LEVEL_BAR, GvcLevelBar))
-#define GVC_LEVEL_BAR_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_LEVEL_BAR, GvcLevelBarClass))
-#define GVC_IS_LEVEL_BAR(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GVC_TYPE_LEVEL_BAR))
-#define GVC_IS_LEVEL_BAR_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GVC_TYPE_LEVEL_BAR))
-#define GVC_LEVEL_BAR_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GVC_TYPE_LEVEL_BAR, GvcLevelBarClass))
+#define GVC_TYPE_LEVEL_BAR (gvc_level_bar_get_type())
+#define GVC_LEVEL_BAR(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), GVC_TYPE_LEVEL_BAR, GvcLevelBar))
+#define GVC_LEVEL_BAR_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_LEVEL_BAR, GvcLevelBarClass))
+#define GVC_IS_LEVEL_BAR(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), GVC_TYPE_LEVEL_BAR))
+#define GVC_IS_LEVEL_BAR_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), GVC_TYPE_LEVEL_BAR))
+#define GVC_LEVEL_BAR_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), GVC_TYPE_LEVEL_BAR, GvcLevelBarClass))
 
-typedef struct _GvcLevelBar         GvcLevelBar;
-typedef struct _GvcLevelBarClass    GvcLevelBarClass;
-typedef struct _GvcLevelBarPrivate  GvcLevelBarPrivate;
+typedef struct _GvcLevelBar GvcLevelBar;
+typedef struct _GvcLevelBarClass GvcLevelBarClass;
+typedef struct _GvcLevelBarPrivate GvcLevelBarPrivate;
 
-struct _GvcLevelBar
-{
-        GtkWidget              parent;
-        GvcLevelBarPrivate    *priv;
+struct _GvcLevelBar {
+  GtkWidget parent;
+  GvcLevelBarPrivate *priv;
 };
 
-struct _GvcLevelBarClass
-{
-        GtkWidgetClass         parent_class;
+struct _GvcLevelBarClass {
+  GtkWidgetClass parent_class;
 };
 
-typedef enum
-{
-    GVC_LEVEL_SCALE_LINEAR,
-    GVC_LEVEL_SCALE_LOG
-} GvcLevelScale;
+typedef enum { GVC_LEVEL_SCALE_LINEAR, GVC_LEVEL_SCALE_LOG } GvcLevelScale;
 
-GType               gvc_level_bar_get_type            (void) G_GNUC_CONST;
+GType gvc_level_bar_get_type(void) G_GNUC_CONST;
 
-GtkWidget *         gvc_level_bar_new                 (void);
-void                gvc_level_bar_set_orientation     (GvcLevelBar   *bar,
-                                                       GtkOrientation orientation);
-GtkOrientation      gvc_level_bar_get_orientation     (GvcLevelBar   *bar);
+GtkWidget *gvc_level_bar_new(void);
+void gvc_level_bar_set_orientation(GvcLevelBar *bar,
+                                   GtkOrientation orientation);
+GtkOrientation gvc_level_bar_get_orientation(GvcLevelBar *bar);
 
-void                gvc_level_bar_set_peak_adjustment (GvcLevelBar   *bar,
-                                                       GtkAdjustment *adjustment);
-GtkAdjustment *     gvc_level_bar_get_peak_adjustment (GvcLevelBar   *bar);
+void gvc_level_bar_set_peak_adjustment(GvcLevelBar *bar,
+                                       GtkAdjustment *adjustment);
+GtkAdjustment *gvc_level_bar_get_peak_adjustment(GvcLevelBar *bar);
 
-void                gvc_level_bar_set_rms_adjustment  (GvcLevelBar   *bar,
-                                                       GtkAdjustment *adjustment);
-GtkAdjustment *     gvc_level_bar_get_rms_adjustment  (GvcLevelBar   *bar);
+void gvc_level_bar_set_rms_adjustment(GvcLevelBar *bar,
+                                      GtkAdjustment *adjustment);
+GtkAdjustment *gvc_level_bar_get_rms_adjustment(GvcLevelBar *bar);
 
-void                gvc_level_bar_set_scale           (GvcLevelBar   *bar,
-                                                       GvcLevelScale  scale);
+void gvc_level_bar_set_scale(GvcLevelBar *bar, GvcLevelScale scale);
 
 G_END_DECLS
 

@@ -24,59 +24,63 @@
 #ifndef __GVC_STREAM_APPLET_ICON_H
 #define __GVC_STREAM_APPLET_ICON_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 #include <libmatemixer/matemixer.h>
 
 G_BEGIN_DECLS
 
-#define GVC_TYPE_STREAM_APPLET_ICON         (gvc_stream_applet_icon_get_type ())
-#define GVC_STREAM_APPLET_ICON(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GVC_TYPE_STREAM_APPLET_ICON, GvcStreamAppletIcon))
-#define GVC_STREAM_APPLET_ICON_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), GVC_TYPE_STREAM_APPLET_ICON, GvcStreamAppletIconClass))
-#define GVC_IS_STREAM_APPLET_ICON(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GVC_TYPE_STREAM_APPLET_ICON))
-#define GVC_IS_STREAM_APPLET_ICON_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GVC_TYPE_STREAM_APPLET_ICON))
-#define GVC_STREAM_APPLET_ICON_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GVC_TYPE_STREAM_APPLET_ICON, GvcStreamAppletIconClass))
+#define GVC_TYPE_STREAM_APPLET_ICON (gvc_stream_applet_icon_get_type())
+#define GVC_STREAM_APPLET_ICON(o)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), GVC_TYPE_STREAM_APPLET_ICON, \
+                              GvcStreamAppletIcon))
+#define GVC_STREAM_APPLET_ICON_CLASS(k)                      \
+  (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_STREAM_APPLET_ICON, \
+                           GvcStreamAppletIconClass))
+#define GVC_IS_STREAM_APPLET_ICON(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), GVC_TYPE_STREAM_APPLET_ICON))
+#define GVC_IS_STREAM_APPLET_ICON_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), GVC_TYPE_STREAM_APPLET_ICON))
+#define GVC_STREAM_APPLET_ICON_GET_CLASS(o)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((o), GVC_TYPE_STREAM_APPLET_ICON, \
+                             GvcStreamAppletIconClass))
 
-typedef struct _GvcStreamAppletIcon         GvcStreamAppletIcon;
-typedef struct _GvcStreamAppletIconClass    GvcStreamAppletIconClass;
-typedef struct _GvcStreamAppletIconPrivate  GvcStreamAppletIconPrivate;
+typedef struct _GvcStreamAppletIcon GvcStreamAppletIcon;
+typedef struct _GvcStreamAppletIconClass GvcStreamAppletIconClass;
+typedef struct _GvcStreamAppletIconPrivate GvcStreamAppletIconPrivate;
 
-struct _GvcStreamAppletIcon
-{
-        GtkEventBox                 parent;
-        GvcStreamAppletIconPrivate *priv;
+struct _GvcStreamAppletIcon {
+  GtkEventBox parent;
+  GvcStreamAppletIconPrivate *priv;
 };
 
-struct _GvcStreamAppletIconClass
-{
-        GtkEventBoxClass            parent_class;
+struct _GvcStreamAppletIconClass {
+  GtkEventBoxClass parent_class;
 };
 
-GType                 gvc_stream_applet_icon_get_type         (void) G_GNUC_CONST;
+GType gvc_stream_applet_icon_get_type(void) G_GNUC_CONST;
 
-GvcStreamAppletIcon * gvc_stream_applet_icon_new              (MateMixerStreamControl *control,
-                                                               const gchar           **icon_names);
+GvcStreamAppletIcon *gvc_stream_applet_icon_new(MateMixerStreamControl *control,
+                                                const gchar **icon_names);
 
-void                  gvc_stream_applet_icon_set_icon_names   (GvcStreamAppletIcon    *icon,
-                                                               const gchar           **icon_names);
-void                  gvc_stream_applet_icon_set_display_name (GvcStreamAppletIcon    *icon,
-                                                                  const gchar         *display_name);
+void gvc_stream_applet_icon_set_icon_names(GvcStreamAppletIcon *icon,
+                                           const gchar **icon_names);
+void gvc_stream_applet_icon_set_display_name(GvcStreamAppletIcon *icon,
+                                             const gchar *display_name);
 
-void                  gvc_stream_applet_icon_set_control      (GvcStreamAppletIcon    *icon,
-                                                               MateMixerStreamControl *control);
+void gvc_stream_applet_icon_set_control(GvcStreamAppletIcon *icon,
+                                        MateMixerStreamControl *control);
 
-void                  gvc_stream_applet_icon_set_size         (GvcStreamAppletIcon *icon,
-                                                               guint                size);
+void gvc_stream_applet_icon_set_size(GvcStreamAppletIcon *icon, guint size);
 
-void                  gvc_stream_applet_icon_set_orient       (GvcStreamAppletIcon  *icon,
-                                                               MatePanelAppletOrient orient);
+void gvc_stream_applet_icon_set_orient(GvcStreamAppletIcon *icon,
+                                       MatePanelAppletOrient orient);
 
-gboolean              gvc_stream_applet_icon_get_mute         (GvcStreamAppletIcon *icon);
+gboolean gvc_stream_applet_icon_get_mute(GvcStreamAppletIcon *icon);
 
-void                  gvc_stream_applet_icon_set_mute         (GvcStreamAppletIcon *icon,
-                                                               gboolean mute);
+void gvc_stream_applet_icon_set_mute(GvcStreamAppletIcon *icon, gboolean mute);
 
-void                  gvc_stream_applet_icon_volume_control   (GvcStreamAppletIcon *icon);
+void gvc_stream_applet_icon_volume_control(GvcStreamAppletIcon *icon);
 
 G_END_DECLS
 

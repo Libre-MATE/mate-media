@@ -23,52 +23,53 @@
 #ifndef __GVC_BALANCE_BAR_H
 #define __GVC_BALANCE_BAR_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 #include <gtk/gtk.h>
-
 #include <libmatemixer/matemixer.h>
 
 G_BEGIN_DECLS
 
-#define GVC_TYPE_BALANCE_BAR         (gvc_balance_bar_get_type ())
-#define GVC_BALANCE_BAR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GVC_TYPE_BALANCE_BAR, GvcBalanceBar))
-#define GVC_BALANCE_BAR_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_BALANCE_BAR, GvcBalanceBarClass))
-#define GVC_IS_BALANCE_BAR(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GVC_TYPE_BALANCE_BAR))
-#define GVC_IS_BALANCE_BAR_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GVC_TYPE_BALANCE_BAR))
-#define GVC_BALANCE_BAR_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GVC_TYPE_BALANCE_BAR, GvcBalanceBarClass))
+#define GVC_TYPE_BALANCE_BAR (gvc_balance_bar_get_type())
+#define GVC_BALANCE_BAR(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), GVC_TYPE_BALANCE_BAR, GvcBalanceBar))
+#define GVC_BALANCE_BAR_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_BALANCE_BAR, GvcBalanceBarClass))
+#define GVC_IS_BALANCE_BAR(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), GVC_TYPE_BALANCE_BAR))
+#define GVC_IS_BALANCE_BAR_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), GVC_TYPE_BALANCE_BAR))
+#define GVC_BALANCE_BAR_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), GVC_TYPE_BALANCE_BAR, GvcBalanceBarClass))
 
 typedef enum {
-        BALANCE_TYPE_RL,
-        BALANCE_TYPE_FR,
-        BALANCE_TYPE_LFE,
+  BALANCE_TYPE_RL,
+  BALANCE_TYPE_FR,
+  BALANCE_TYPE_LFE,
 } GvcBalanceType;
 
 #define NUM_BALANCE_TYPES BALANCE_TYPE_LFE + 1
 
-typedef struct _GvcBalanceBar         GvcBalanceBar;
-typedef struct _GvcBalanceBarClass    GvcBalanceBarClass;
-typedef struct _GvcBalanceBarPrivate  GvcBalanceBarPrivate;
+typedef struct _GvcBalanceBar GvcBalanceBar;
+typedef struct _GvcBalanceBarClass GvcBalanceBarClass;
+typedef struct _GvcBalanceBarPrivate GvcBalanceBarPrivate;
 
-struct _GvcBalanceBar
-{
-        GtkBox                parent;
-        GvcBalanceBarPrivate *priv;
+struct _GvcBalanceBar {
+  GtkBox parent;
+  GvcBalanceBarPrivate *priv;
 };
 
-struct _GvcBalanceBarClass
-{
-        GtkBoxClass           parent_class;
+struct _GvcBalanceBarClass {
+  GtkBoxClass parent_class;
 };
 
-GType               gvc_balance_bar_get_type            (void) G_GNUC_CONST;
+GType gvc_balance_bar_get_type(void) G_GNUC_CONST;
 
-GtkWidget *         gvc_balance_bar_new                 (MateMixerStreamControl *control,
-                                                         GvcBalanceType   btype);
+GtkWidget *gvc_balance_bar_new(MateMixerStreamControl *control,
+                               GvcBalanceType btype);
 
-void                gvc_balance_bar_set_size_group      (GvcBalanceBar   *bar,
-                                                         GtkSizeGroup    *group,
-                                                         gboolean         symmetric);
+void gvc_balance_bar_set_size_group(GvcBalanceBar *bar, GtkSizeGroup *group,
+                                    gboolean symmetric);
 
 G_END_DECLS
 

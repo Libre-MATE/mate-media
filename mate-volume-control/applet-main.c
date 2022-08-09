@@ -21,75 +21,70 @@
  * 02110-1301, USA.
  */
 
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
+#include <gio/gio.h>
+#include <glib-object.h>
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <glib-object.h>
 #include <gtk/gtk.h>
-
 #include <libintl.h>
-#include <gio/gio.h>
 #include <libmatemixer/matemixer.h>
 #include <mate-panel-applet.h>
 
 #include "gvc-applet.h"
 
-static gboolean
-applet_main (MatePanelApplet* applet_widget)
-{
-        GError       *error = NULL;
-        GvcApplet    *applet;
-        GApplication *app = NULL;
+static gboolean applet_main(MatePanelApplet* applet_widget) {
+  GError* error = NULL;
+  GvcApplet* applet;
+  GApplication* app = NULL;
 
-        bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
-        bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-        textdomain (GETTEXT_PACKAGE);
+  bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
+  bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+  textdomain(GETTEXT_PACKAGE);
 
-        app = g_application_new (GVC_APPLET_DBUS_NAME, G_APPLICATION_FLAGS_NONE);
+  app = g_application_new(GVC_APPLET_DBUS_NAME, G_APPLICATION_FLAGS_NONE);
 
-        if (!g_application_register (app, NULL, &error)) {
-                g_warning ("%s", error->message);
-                g_error_free (error);
-                return FALSE;
-        }
-        if (g_application_get_is_remote (app)) {
-                g_warning ("Applet is already running, exiting");
-                return TRUE;
-        }
-        if (mate_mixer_init () == FALSE) {
-                g_warning ("libmatemixer initialization failed, exiting");
-                return FALSE;
-        }
+  if (!g_application_register(app, NULL, &error)) {
+    g_warning("%s", error->message);
+    g_error_free(error);
+    return FALSE;
+  }
+  if (g_application_get_is_remote(app)) {
+    g_warning("Applet is already running, exiting");
+    return TRUE;
+  }
+  if (mate_mixer_init() == FALSE) {
+    g_warning("libmatemixer initialization failed, exiting");
+    return FALSE;
+  }
 
-        gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
-                                           ICON_DATA_DIR);
+  gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(),
+                                    ICON_DATA_DIR);
 
-        applet = gvc_applet_new ();
+  applet = gvc_applet_new();
 
-        gvc_applet_fill (applet, applet_widget);
-        gvc_applet_start (applet);
+  gvc_applet_fill(applet, applet_widget);
+  gvc_applet_start(applet);
 
-        g_object_unref (app);
+  g_object_unref(app);
 
-        return TRUE;
+  return TRUE;
 }
 
 /* this function, called by mate-panel, will create the applet */
-static gboolean
-applet_factory (MatePanelApplet* applet, const char* iid, gpointer data)
-{
-        gboolean retval = FALSE;
+static gboolean applet_factory(MatePanelApplet* applet, const char* iid,
+                               gpointer data) {
+  gboolean retval = FALSE;
 
-        if (!g_strcmp0 (iid, "GvcApplet"))
-                retval = applet_main (applet);
+  if (!g_strcmp0(iid, "GvcApplet")) retval = applet_main(applet);
 
-        return retval;
+  return retval;
 }
 
 /* needed by mate-panel applet library */
-MATE_PANEL_APPLET_OUT_PROCESS_FACTORY("GvcAppletFactory",
-                                      PANEL_TYPE_APPLET,
-                                      "Volume Control applet",
-                                      applet_factory,
+MATE_PANEL_APPLET_OUT_PROCESS_FACTORY("GvcAppletFactory", PANEL_TYPE_APPLET,
+                                      "Volume Control applet", applet_factory,
                                       NULL)

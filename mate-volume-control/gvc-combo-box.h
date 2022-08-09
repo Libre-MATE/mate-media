@@ -23,50 +23,49 @@
 #ifndef __GVC_COMBO_BOX_H
 #define __GVC_COMBO_BOX_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 #include <gtk/gtk.h>
-
 #include <libmatemixer/matemixer.h>
 
 G_BEGIN_DECLS
 
-#define GVC_TYPE_COMBO_BOX         (gvc_combo_box_get_type ())
-#define GVC_COMBO_BOX(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GVC_TYPE_COMBO_BOX, GvcComboBox))
-#define GVC_COMBO_BOX_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_COMBO_BOX, GvcComboBoxClass))
-#define GVC_IS_COMBO_BOX(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GVC_TYPE_COMBO_BOX))
-#define GVC_IS_COMBO_BOX_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GVC_TYPE_COMBO_BOX))
-#define GVC_COMBO_BOX_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GVC_TYPE_COMBO_BOX, GvcComboBoxClass))
+#define GVC_TYPE_COMBO_BOX (gvc_combo_box_get_type())
+#define GVC_COMBO_BOX(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), GVC_TYPE_COMBO_BOX, GvcComboBox))
+#define GVC_COMBO_BOX_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_COMBO_BOX, GvcComboBoxClass))
+#define GVC_IS_COMBO_BOX(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), GVC_TYPE_COMBO_BOX))
+#define GVC_IS_COMBO_BOX_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), GVC_TYPE_COMBO_BOX))
+#define GVC_COMBO_BOX_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), GVC_TYPE_COMBO_BOX, GvcComboBoxClass))
 
-typedef struct _GvcComboBox         GvcComboBox;
-typedef struct _GvcComboBoxClass    GvcComboBoxClass;
-typedef struct _GvcComboBoxPrivate  GvcComboBoxPrivate;
+typedef struct _GvcComboBox GvcComboBox;
+typedef struct _GvcComboBoxClass GvcComboBoxClass;
+typedef struct _GvcComboBoxPrivate GvcComboBoxPrivate;
 
-struct _GvcComboBox
-{
-        GtkBox                  parent;
-        GvcComboBoxPrivate     *priv;
+struct _GvcComboBox {
+  GtkBox parent;
+  GvcComboBoxPrivate *priv;
 };
 
-struct _GvcComboBoxClass
-{
-        GtkBoxClass             parent_class;
+struct _GvcComboBoxClass {
+  GtkBoxClass parent_class;
 
-        void (* changing)       (GvcComboBox           *combobox,
-                                 MateMixerSwitchOption *option);
-        void (* button_clicked) (GvcComboBox           *combobox);
+  void (*changing)(GvcComboBox *combobox, MateMixerSwitchOption *option);
+  void (*button_clicked)(GvcComboBox *combobox);
 };
 
-GType               gvc_combo_box_get_type            (void) G_GNUC_CONST;
+GType gvc_combo_box_get_type(void) G_GNUC_CONST;
 
-GtkWidget *         gvc_combo_box_new                 (MateMixerSwitch *swtch,
-                                                       const gchar     *label);
+GtkWidget *gvc_combo_box_new(MateMixerSwitch *swtch, const gchar *label);
 
-MateMixerSwitch *   gvc_combo_box_get_switch          (GvcComboBox     *combobox);
+MateMixerSwitch *gvc_combo_box_get_switch(GvcComboBox *combobox);
 
-void                gvc_combo_box_set_size_group      (GvcComboBox     *combobox,
-                                                       GtkSizeGroup    *group,
-                                                       gboolean         symmetric);
+void gvc_combo_box_set_size_group(GvcComboBox *combobox, GtkSizeGroup *group,
+                                  gboolean symmetric);
 
 G_END_DECLS
 

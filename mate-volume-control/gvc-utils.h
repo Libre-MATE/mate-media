@@ -23,14 +23,15 @@
 #define __GVC_HELPERS_H
 
 #include <glib.h>
-
 #include <libmatemixer/matemixer.h>
 
 G_BEGIN_DECLS
 
-const gchar *gvc_channel_position_to_pulse_string  (MateMixerChannelPosition position);
-const gchar *gvc_channel_position_to_pretty_string (MateMixerChannelPosition position);
-const gchar *gvc_channel_map_to_pretty_string      (MateMixerStreamControl  *control);
+const gchar *gvc_channel_position_to_pulse_string(
+    MateMixerChannelPosition position);
+const gchar *gvc_channel_position_to_pretty_string(
+    MateMixerChannelPosition position);
+const gchar *gvc_channel_map_to_pretty_string(MateMixerStreamControl *control);
 
 G_END_DECLS
 

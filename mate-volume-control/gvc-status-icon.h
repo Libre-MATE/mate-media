@@ -23,39 +23,42 @@
 #ifndef __GVC_STATUS_ICON_H
 #define __GVC_STATUS_ICON_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 
 G_BEGIN_DECLS
 
-#define GVC_STATUS_ICON_DBUS_NAME    "org.mate.VolumeControlStatusIcon"
+#define GVC_STATUS_ICON_DBUS_NAME "org.mate.VolumeControlStatusIcon"
 
-#define GVC_TYPE_STATUS_ICON         (gvc_status_icon_get_type ())
-#define GVC_STATUS_ICON(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GVC_TYPE_STATUS_ICON, GvcStatusIcon))
-#define GVC_STATUS_ICON_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), GVC_TYPE_STATUS_ICON, GvcStatusIconClass))
-#define GVC_IS_STATUS_ICON(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GVC_TYPE_STATUS_ICON))
-#define GVC_IS_STATUS_ICON_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GVC_TYPE_STATUS_ICON))
-#define GVC_STATUS_ICON_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GVC_TYPE_STATUS_ICON, GvcStatusIconClass))
+#define GVC_TYPE_STATUS_ICON (gvc_status_icon_get_type())
+#define GVC_STATUS_ICON(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), GVC_TYPE_STATUS_ICON, GvcStatusIcon))
+#define GVC_STATUS_ICON_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_STATUS_ICON, GvcStatusIconClass))
+#define GVC_IS_STATUS_ICON(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), GVC_TYPE_STATUS_ICON))
+#define GVC_IS_STATUS_ICON_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), GVC_TYPE_STATUS_ICON))
+#define GVC_STATUS_ICON_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), GVC_TYPE_STATUS_ICON, GvcStatusIconClass))
 
-typedef struct _GvcStatusIcon         GvcStatusIcon;
-typedef struct _GvcStatusIconClass    GvcStatusIconClass;
-typedef struct _GvcStatusIconPrivate  GvcStatusIconPrivate;
+typedef struct _GvcStatusIcon GvcStatusIcon;
+typedef struct _GvcStatusIconClass GvcStatusIconClass;
+typedef struct _GvcStatusIconPrivate GvcStatusIconPrivate;
 
-struct _GvcStatusIcon
-{
-        GObject               parent;
-        GvcStatusIconPrivate *priv;
+struct _GvcStatusIcon {
+  GObject parent;
+  GvcStatusIconPrivate *priv;
 };
 
-struct _GvcStatusIconClass
-{
-        GObjectClass          parent_class;
+struct _GvcStatusIconClass {
+  GObjectClass parent_class;
 };
 
-GType               gvc_status_icon_get_type            (void) G_GNUC_CONST;
+GType gvc_status_icon_get_type(void) G_GNUC_CONST;
 
-GvcStatusIcon *     gvc_status_icon_new                 (void);
-void                gvc_status_icon_start               (GvcStatusIcon *status_icon);
+GvcStatusIcon *gvc_status_icon_new(void);
+void gvc_status_icon_start(GvcStatusIcon *status_icon);
 
 G_END_DECLS
 

@@ -20,15 +20,16 @@
  * 02110-1301, USA.
  */
 
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
+#include <gio/gio.h>
+#include <glib-object.h>
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <glib-object.h>
 #include <gtk/gtk.h>
-
 #include <libintl.h>
-#include <gio/gio.h>
 #include <libmatemixer/matemixer.h>
 
 #include "gvc-status-icon.h"
@@ -36,66 +37,62 @@
 static gboolean show_version = FALSE;
 static gboolean debug = FALSE;
 
-int
-main (int argc, char **argv)
-{
-        GError        *error = NULL;
-        GvcStatusIcon *status_icon;
-        GApplication  *app = NULL;
-        GOptionEntry   entries[] = {
-                { "version", 'v', 0, G_OPTION_ARG_NONE, &show_version, N_("Version of this application"), NULL },
-                { "debug", 'd', 0, G_OPTION_ARG_NONE, &debug, N_("Enable debug"), NULL },
-                { NULL, 0, 0, G_OPTION_ARG_NONE, NULL, NULL, NULL }
-        };
+int main(int argc, char **argv) {
+  GError *error = NULL;
+  GvcStatusIcon *status_icon;
+  GApplication *app = NULL;
+  GOptionEntry entries[] = {
+      {"version", 'v', 0, G_OPTION_ARG_NONE, &show_version,
+       N_("Version of this application"), NULL},
+      {"debug", 'd', 0, G_OPTION_ARG_NONE, &debug, N_("Enable debug"), NULL},
+      {NULL, 0, 0, G_OPTION_ARG_NONE, NULL, NULL, NULL}};
 
-        bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
-        bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-        textdomain (GETTEXT_PACKAGE);
+  bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
+  bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+  textdomain(GETTEXT_PACKAGE);
 
-        gtk_init_with_args (&argc, &argv,
-                            _(" — MATE Volume Control Status Icon"),
-                            entries, GETTEXT_PACKAGE,
-                            &error);
+  gtk_init_with_args(&argc, &argv, _(" — MATE Volume Control Status Icon"),
+                     entries, GETTEXT_PACKAGE, &error);
 
-        if (error != NULL) {
-                g_warning ("%s", error->message);
-                g_error_free (error);
-                return 1;
-        }
-        if (show_version == TRUE) {
-                g_print ("%s %s\n", argv[0], VERSION);
-                return 0;
-        }
-        if (debug == TRUE) {
-                g_setenv ("G_MESSAGES_DEBUG", "all", FALSE);
-        }
+  if (error != NULL) {
+    g_warning("%s", error->message);
+    g_error_free(error);
+    return 1;
+  }
+  if (show_version == TRUE) {
+    g_print("%s %s\n", argv[0], VERSION);
+    return 0;
+  }
+  if (debug == TRUE) {
+    g_setenv("G_MESSAGES_DEBUG", "all", FALSE);
+  }
 
-        app = g_application_new (GVC_STATUS_ICON_DBUS_NAME, G_APPLICATION_FLAGS_NONE);
+  app = g_application_new(GVC_STATUS_ICON_DBUS_NAME, G_APPLICATION_FLAGS_NONE);
 
-        if (!g_application_register (app, NULL, &error)) {
-                g_warning ("%s", error->message);
-                g_error_free (error);
-                return 1;
-        }
-        if (g_application_get_is_remote (app)) {
-                g_warning ("Status icon is already running, exiting");
-                return 0;
-        }
-        if (mate_mixer_init () == FALSE) {
-                g_warning ("libmatemixer initialization failed, exiting");
-                return 1;
-        }
+  if (!g_application_register(app, NULL, &error)) {
+    g_warning("%s", error->message);
+    g_error_free(error);
+    return 1;
+  }
+  if (g_application_get_is_remote(app)) {
+    g_warning("Status icon is already running, exiting");
+    return 0;
+  }
+  if (mate_mixer_init() == FALSE) {
+    g_warning("libmatemixer initialization failed, exiting");
+    return 1;
+  }
 
-        gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
-                                           ICON_DATA_DIR);
+  gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(),
+                                    ICON_DATA_DIR);
 
-        status_icon = gvc_status_icon_new ();
+  status_icon = gvc_status_icon_new();
 
-        gvc_status_icon_start (status_icon);
-        gtk_main ();
+  gvc_status_icon_start(status_icon);
+  gtk_main();
 
-        g_object_unref (status_icon);
-        g_object_unref (app);
+  g_object_unref(status_icon);
+  g_object_unref(app);
 
-        return 0;
+  return 0;
 }

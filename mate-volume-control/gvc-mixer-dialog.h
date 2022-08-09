@@ -23,43 +23,45 @@
 #ifndef __GVC_MIXER_DIALOG_H
 #define __GVC_MIXER_DIALOG_H
 
-#include <glib.h>
 #include <glib-object.h>
-
+#include <glib.h>
+#include <gtk/gtk.h>
 #include <libmatemixer/matemixer.h>
 
 G_BEGIN_DECLS
 
-#define GVC_DIALOG_DBUS_NAME          "org.mate.VolumeControl"
+#define GVC_DIALOG_DBUS_NAME "org.mate.VolumeControl"
 
-#define GVC_TYPE_MIXER_DIALOG         (gvc_mixer_dialog_get_type ())
-#define GVC_MIXER_DIALOG(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GVC_TYPE_MIXER_DIALOG, GvcMixerDialog))
-#define GVC_MIXER_DIALOG_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_MIXER_DIALOG, GvcMixerDialogClass))
-#define GVC_IS_MIXER_DIALOG(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GVC_TYPE_MIXER_DIALOG))
-#define GVC_IS_MIXER_DIALOG_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GVC_TYPE_MIXER_DIALOG))
-#define GVC_MIXER_DIALOG_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GVC_TYPE_MIXER_DIALOG, GvcMixerDialogClass))
+#define GVC_TYPE_MIXER_DIALOG (gvc_mixer_dialog_get_type())
+#define GVC_MIXER_DIALOG(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), GVC_TYPE_MIXER_DIALOG, GvcMixerDialog))
+#define GVC_MIXER_DIALOG_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_MIXER_DIALOG, GvcMixerDialogClass))
+#define GVC_IS_MIXER_DIALOG(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), GVC_TYPE_MIXER_DIALOG))
+#define GVC_IS_MIXER_DIALOG_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), GVC_TYPE_MIXER_DIALOG))
+#define GVC_MIXER_DIALOG_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), GVC_TYPE_MIXER_DIALOG, GvcMixerDialogClass))
 
-typedef struct _GvcMixerDialog         GvcMixerDialog;
-typedef struct _GvcMixerDialogClass    GvcMixerDialogClass;
-typedef struct _GvcMixerDialogPrivate  GvcMixerDialogPrivate;
+typedef struct _GvcMixerDialog GvcMixerDialog;
+typedef struct _GvcMixerDialogClass GvcMixerDialogClass;
+typedef struct _GvcMixerDialogPrivate GvcMixerDialogPrivate;
 
-struct _GvcMixerDialog
-{
-        GtkDialog              parent;
-        GvcMixerDialogPrivate *priv;
+struct _GvcMixerDialog {
+  GtkDialog parent;
+  GvcMixerDialogPrivate *priv;
 };
 
-struct _GvcMixerDialogClass
-{
-        GtkDialogClass         parent_class;
+struct _GvcMixerDialogClass {
+  GtkDialogClass parent_class;
 };
 
-GType               gvc_mixer_dialog_get_type            (void) G_GNUC_CONST;
+GType gvc_mixer_dialog_get_type(void) G_GNUC_CONST;
 
-GvcMixerDialog *    gvc_mixer_dialog_new                 (MateMixerContext *context);
+GvcMixerDialog *gvc_mixer_dialog_new(MateMixerContext *context);
 
-gboolean            gvc_mixer_dialog_set_page            (GvcMixerDialog   *dialog,
-                                                          const gchar      *page);
+gboolean gvc_mixer_dialog_set_page(GvcMixerDialog *dialog, const gchar *page);
 
 G_END_DECLS
 

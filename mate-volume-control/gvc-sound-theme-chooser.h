@@ -23,32 +23,39 @@
 #define __GVC_SOUND_THEME_CHOOSER_H
 
 #include <glib-object.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define GVC_TYPE_SOUND_THEME_CHOOSER         (gvc_sound_theme_chooser_get_type ())
-#define GVC_SOUND_THEME_CHOOSER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GVC_TYPE_SOUND_THEME_CHOOSER, GvcSoundThemeChooser))
-#define GVC_SOUND_THEME_CHOOSER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_SOUND_THEME_CHOOSER, GvcSoundThemeChooserClass))
-#define GVC_IS_SOUND_THEME_CHOOSER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GVC_TYPE_SOUND_THEME_CHOOSER))
-#define GVC_IS_SOUND_THEME_CHOOSER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GVC_TYPE_SOUND_THEME_CHOOSER))
-#define GVC_SOUND_THEME_CHOOSER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GVC_TYPE_SOUND_THEME_CHOOSER, GvcSoundThemeChooserClass))
+#define GVC_TYPE_SOUND_THEME_CHOOSER (gvc_sound_theme_chooser_get_type())
+#define GVC_SOUND_THEME_CHOOSER(o)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), GVC_TYPE_SOUND_THEME_CHOOSER, \
+                              GvcSoundThemeChooser))
+#define GVC_SOUND_THEME_CHOOSER_CLASS(k)                      \
+  (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_SOUND_THEME_CHOOSER, \
+                           GvcSoundThemeChooserClass))
+#define GVC_IS_SOUND_THEME_CHOOSER(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), GVC_TYPE_SOUND_THEME_CHOOSER))
+#define GVC_IS_SOUND_THEME_CHOOSER_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), GVC_TYPE_SOUND_THEME_CHOOSER))
+#define GVC_SOUND_THEME_CHOOSER_GET_CLASS(o)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((o), GVC_TYPE_SOUND_THEME_CHOOSER, \
+                             GvcSoundThemeChooserClass))
 
 typedef struct GvcSoundThemeChooserPrivate GvcSoundThemeChooserPrivate;
 
-typedef struct
-{
-        GtkBox                       parent;
-        GvcSoundThemeChooserPrivate *priv;
+typedef struct {
+  GtkBox parent;
+  GvcSoundThemeChooserPrivate *priv;
 } GvcSoundThemeChooser;
 
-typedef struct
-{
-        GtkBoxClass           parent_class;
+typedef struct {
+  GtkBoxClass parent_class;
 } GvcSoundThemeChooserClass;
 
-GType               gvc_sound_theme_chooser_get_type            (void);
+GType gvc_sound_theme_chooser_get_type(void);
 
-GtkWidget *         gvc_sound_theme_chooser_new                 (void);
+GtkWidget *gvc_sound_theme_chooser_new(void);
 
 G_END_DECLS
 

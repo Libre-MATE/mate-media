@@ -24,41 +24,43 @@
 #ifndef __GVC_APPLET_H
 #define __GVC_APPLET_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
+#include <mate-panel-applet.h>
 
 G_BEGIN_DECLS
 
-#define GVC_APPLET_DBUS_NAME    "org.mate.VolumeControlApplet"
-#define APPLET_ICON             "multimedia-volume-control"
+#define GVC_APPLET_DBUS_NAME "org.mate.VolumeControlApplet"
+#define APPLET_ICON "multimedia-volume-control"
 
-#define GVC_TYPE_APPLET         (gvc_applet_get_type ())
-#define GVC_APPLET(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GVC_TYPE_APPLET, GvcApplet))
-#define GVC_APPLET_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), GVC_TYPE_APPLET, GvcAppletClass))
-#define GVC_IS_APPLET(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GVC_TYPE_APPLET))
-#define GVC_IS_APPLET_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GVC_TYPE_APPLET))
-#define GVC_APPLET_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GVC_TYPE_APPLET, GvcAppletClass))
+#define GVC_TYPE_APPLET (gvc_applet_get_type())
+#define GVC_APPLET(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), GVC_TYPE_APPLET, GvcApplet))
+#define GVC_APPLET_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), GVC_TYPE_APPLET, GvcAppletClass))
+#define GVC_IS_APPLET(o) (G_TYPE_CHECK_INSTANCE_TYPE((o), GVC_TYPE_APPLET))
+#define GVC_IS_APPLET_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE((k), GVC_TYPE_APPLET))
+#define GVC_APPLET_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), GVC_TYPE_APPLET, GvcAppletClass))
 
-typedef struct _GvcApplet         GvcApplet;
-typedef struct _GvcAppletClass    GvcAppletClass;
-typedef struct _GvcAppletPrivate  GvcAppletPrivate;
+typedef struct _GvcApplet GvcApplet;
+typedef struct _GvcAppletClass GvcAppletClass;
+typedef struct _GvcAppletPrivate GvcAppletPrivate;
 
-struct _GvcApplet
-{
-        GObject                 parent;
-        GvcAppletPrivate       *priv;
+struct _GvcApplet {
+  GObject parent;
+  GvcAppletPrivate *priv;
 };
 
-struct _GvcAppletClass
-{
-        GObjectClass            parent_class;
+struct _GvcAppletClass {
+  GObjectClass parent_class;
 };
 
-GType               gvc_applet_get_type            (void) G_GNUC_CONST;
+GType gvc_applet_get_type(void) G_GNUC_CONST;
 
-GvcApplet *         gvc_applet_new                 (void);
-void                gvc_applet_start               (GvcApplet *applet);
-gboolean            gvc_applet_fill                (GvcApplet *applet, MatePanelApplet *applet_widget);
+GvcApplet *gvc_applet_new(void);
+void gvc_applet_start(GvcApplet *applet);
+gboolean gvc_applet_fill(GvcApplet *applet, MatePanelApplet *applet_widget);
 
 G_END_DECLS
 
