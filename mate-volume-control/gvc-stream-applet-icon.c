@@ -331,8 +331,8 @@ static void update_icon(GvcStreamAppletIcon *icon) {
   }
 
   description = mate_mixer_stream_control_get_label(icon->priv->control);
+  guint volume_percent = (guint)(100.0 * ((gdouble) volume) / ((gdouble) normal));
 
-  guint volume_percent = (guint)round(100.0 * volume / normal);
   if (muted) {
     markup = g_strdup_printf("<b>%s: %s %u%%</b>\n<small>%s</small>",
                              icon->priv->display_name, _("Muted at"),
