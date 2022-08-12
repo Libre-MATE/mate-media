@@ -365,7 +365,7 @@ static GtkWidget *create_control(ca_context *canberra,
 
   test_button = gtk_button_new_with_label(_("Test"));
   gtk_label_set_mnemonic_widget(GTK_LABEL(label), test_button);
-  g_signal_connect(G_OBJECT(test_button), "clicked",
+  g_signal_connect(test_button, "clicked",
                    G_CALLBACK(on_test_button_clicked), control);
 
   g_object_set_data(G_OBJECT(control), "button", test_button);

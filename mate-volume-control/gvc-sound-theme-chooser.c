@@ -308,7 +308,7 @@ static void setup_theme_selector(GvcSoundThemeChooser *chooser) {
   gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(chooser->priv->combo_box),
                                  renderer, "text", THEME_DISPLAY_COL, NULL);
 
-  g_signal_connect(G_OBJECT(chooser->priv->combo_box), "changed",
+  g_signal_connect(chooser->priv->combo_box, "changed",
                    G_CALLBACK(on_combobox_changed), chooser);
 }
 
@@ -728,13 +728,13 @@ static GtkWidget *create_alert_treeview(GvcSoundThemeChooser *chooser) {
   treeview = gtk_tree_view_new();
 
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
-  g_signal_connect(G_OBJECT(treeview), "row-activated",
+  g_signal_connect(treeview, "row-activated",
                    G_CALLBACK(on_treeview_row_activated), chooser);
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
 
   gtk_tree_selection_set_mode(selection, GTK_SELECTION_SINGLE);
-  g_signal_connect(G_OBJECT(selection), "changed",
+  g_signal_connect(selection, "changed",
                    G_CALLBACK(on_treeview_selection_changed), chooser);
 
   /* Setup the tree model, 3 columns:
@@ -919,7 +919,7 @@ static void gvc_sound_theme_chooser_init(GvcSoundThemeChooser *chooser) {
 
   chooser->priv->sound_settings = g_settings_new(KEY_SOUNDS_SCHEMA);
 
-  g_signal_connect(G_OBJECT(chooser->priv->sound_settings), "changed",
+  g_signal_connect(chooser->priv->sound_settings, "changed",
                    G_CALLBACK(on_key_changed), chooser);
 
   str = g_strdup_printf("<b>%s</b>", _("C_hoose an alert sound:"));
@@ -958,7 +958,7 @@ static void gvc_sound_theme_chooser_init(GvcSoundThemeChooser *chooser) {
   gtk_box_pack_start(GTK_BOX(chooser), chooser->priv->click_feedback_button,
                      FALSE, FALSE, 0);
 
-  g_signal_connect(G_OBJECT(chooser->priv->click_feedback_button), "toggled",
+  g_signal_connect(chooser->priv->click_feedback_button, "toggled",
                    G_CALLBACK(on_click_feedback_toggled), chooser);
 
   setup_theme_selector(chooser);

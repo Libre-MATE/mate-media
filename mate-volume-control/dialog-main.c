@@ -95,9 +95,9 @@ static void context_ready(MateMixerContext *context,
 
   app_dialog = GTK_WIDGET(gvc_mixer_dialog_new(context));
 
-  g_signal_connect(G_OBJECT(app_dialog), "response",
+  g_signal_connect(app_dialog, "response",
                    G_CALLBACK(on_dialog_response), GINT_TO_POINTER(FALSE));
-  g_signal_connect(G_OBJECT(app_dialog), "close", G_CALLBACK(on_dialog_close),
+  g_signal_connect(app_dialog, "close", G_CALLBACK(on_dialog_close),
                    GINT_TO_POINTER(FALSE));
 
   gvc_mixer_dialog_set_page(GVC_MIXER_DIALOG(app_dialog), page);
@@ -124,9 +124,9 @@ static void on_context_state_notify(MateMixerContext *context,
                                     GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
                                     _("Sound system is not available"));
 
-    g_signal_connect(G_OBJECT(dialog), "response",
+    g_signal_connect(dialog, "response",
                      G_CALLBACK(on_dialog_response), GINT_TO_POINTER(TRUE));
-    g_signal_connect(G_OBJECT(dialog), "close", G_CALLBACK(on_dialog_close),
+    g_signal_connect(dialog, "close", G_CALLBACK(on_dialog_close),
                      GINT_TO_POINTER(TRUE));
 
     gtk_widget_show(dialog);
@@ -138,9 +138,9 @@ static gboolean dialog_popup_timeout(gpointer data) {
       GTK_WINDOW(app_dialog), 0, GTK_MESSAGE_INFO, GTK_BUTTONS_CANCEL,
       _("Waiting for sound system to respond"));
 
-  g_signal_connect(G_OBJECT(warning_dialog), "response",
+  g_signal_connect(warning_dialog, "response",
                    G_CALLBACK(on_dialog_response), GINT_TO_POINTER(TRUE));
-  g_signal_connect(G_OBJECT(warning_dialog), "close",
+  g_signal_connect(warning_dialog, "close",
                    G_CALLBACK(on_dialog_close), GINT_TO_POINTER(TRUE));
 
   gtk_widget_show(warning_dialog);
@@ -225,7 +225,7 @@ int main(int argc, char **argv) {
   mate_mixer_context_set_app_version(context, VERSION);
   mate_mixer_context_set_app_icon(context, "multimedia-volume-control");
 
-  g_signal_connect(G_OBJECT(context), "notify::state",
+  g_signal_connect(context, "notify::state",
                    G_CALLBACK(on_context_state_notify), app);
 
   mate_mixer_context_open(context);

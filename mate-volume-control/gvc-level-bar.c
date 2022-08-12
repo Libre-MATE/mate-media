@@ -282,7 +282,7 @@ void gvc_level_bar_set_peak_adjustment(GvcLevelBar *bar,
 
   bar->priv->peak_adjustment = g_object_ref_sink(adjustment);
 
-  g_signal_connect(G_OBJECT(bar->priv->peak_adjustment), "value-changed",
+  g_signal_connect(bar->priv->peak_adjustment, "value-changed",
                    G_CALLBACK(on_peak_adjustment_value_changed), bar);
 
   update_peak_value(bar);
@@ -304,7 +304,7 @@ void gvc_level_bar_set_rms_adjustment(GvcLevelBar *bar,
 
   bar->priv->rms_adjustment = g_object_ref_sink(adjustment);
 
-  g_signal_connect(G_OBJECT(bar->priv->rms_adjustment), "value-changed",
+  g_signal_connect(bar->priv->rms_adjustment, "value-changed",
                    G_CALLBACK(on_rms_adjustment_value_changed), bar);
 
   update_rms_value(bar);

@@ -156,11 +156,11 @@ static void create_scale_box(GvcChannelBar *bar) {
 
   gtk_widget_add_events(bar->priv->scale, GDK_SCROLL_MASK);
 
-  g_signal_connect(G_OBJECT(bar->priv->scale), "button-press-event",
+  g_signal_connect(bar->priv->scale, "button-press-event",
                    G_CALLBACK(on_scale_button_press_event), bar);
-  g_signal_connect(G_OBJECT(bar->priv->scale), "button-release-event",
+  g_signal_connect(bar->priv->scale, "button-release-event",
                    G_CALLBACK(on_scale_button_release_event), bar);
-  g_signal_connect(G_OBJECT(bar->priv->scale), "scroll-event",
+  g_signal_connect(bar->priv->scale, "scroll-event",
                    G_CALLBACK(on_scale_scroll_event), bar);
 
   if (bar->priv->size_group != NULL) {
@@ -484,10 +484,10 @@ void gvc_channel_bar_set_control(GvcChannelBar *bar,
     bar->priv->control_flags = MATE_MIXER_STREAM_CONTROL_NO_FLAGS;
 
   if (bar->priv->control_flags & MATE_MIXER_STREAM_CONTROL_VOLUME_READABLE)
-    g_signal_connect(G_OBJECT(control), "notify::volume",
+    g_signal_connect(control, "notify::volume",
                      G_CALLBACK(on_control_volume_notify), bar);
   if (bar->priv->control_flags & MATE_MIXER_STREAM_CONTROL_MUTE_READABLE)
-    g_signal_connect(G_OBJECT(control), "notify::mute",
+    g_signal_connect(control, "notify::mute",
                      G_CALLBACK(on_control_mute_notify), bar);
 
   update_marks(bar);

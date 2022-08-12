@@ -191,9 +191,9 @@ static gboolean update_default_input_stream(GvcStatusIcon *status_icon) {
 
   status_icon->priv->input = (stream == NULL) ? NULL : g_object_ref(stream);
   if (status_icon->priv->input != NULL) {
-    g_signal_connect(G_OBJECT(status_icon->priv->input), "control-added",
+    g_signal_connect(status_icon->priv->input, "control-added",
                      G_CALLBACK(on_input_stream_control_added), status_icon);
-    g_signal_connect(G_OBJECT(status_icon->priv->input), "control-removed",
+    g_signal_connect(status_icon->priv->input, "control-removed",
                      G_CALLBACK(on_input_stream_control_removed), status_icon);
   }
 
@@ -304,13 +304,11 @@ static void gvc_status_icon_init(GvcStatusIcon *status_icon) {
   mate_mixer_context_set_app_icon(status_icon->priv->context,
                                   "multimedia-volume-control");
 
-  g_signal_connect(G_OBJECT(status_icon->priv->context), "notify::state",
+  g_signal_connect(status_icon->priv->context, "notify::state",
                    G_CALLBACK(on_context_state_notify), status_icon);
-  g_signal_connect(
-      G_OBJECT(status_icon->priv->context), "notify::default-input-stream",
+  g_signal_connect(status_icon->priv->context, "notify::default-input-stream",
       G_CALLBACK(on_context_default_input_stream_notify), status_icon);
-  g_signal_connect(
-      G_OBJECT(status_icon->priv->context), "notify::default-output-stream",
+  g_signal_connect(status_icon->priv->context, "notify::default-output-stream",
       G_CALLBACK(on_context_default_output_stream_notify), status_icon);
 }
 

@@ -232,9 +232,9 @@ static gboolean update_default_output_stream(GvcApplet *applet) {
 
   applet->priv->output = (stream == NULL) ? NULL : g_object_ref(stream);
   if (applet->priv->output != NULL) {
-    g_signal_connect(G_OBJECT(applet->priv->output), "control-added",
+    g_signal_connect(applet->priv->output, "control-added",
                      G_CALLBACK(on_output_stream_control_added), applet);
-    g_signal_connect(G_OBJECT(applet->priv->output), "control-removed",
+    g_signal_connect(applet->priv->output, "control-removed",
                      G_CALLBACK(on_output_stream_control_removed), applet);
   }
 
@@ -256,9 +256,9 @@ static gboolean update_default_input_stream(GvcApplet *applet) {
 
   applet->priv->input = (stream == NULL) ? NULL : g_object_ref(stream);
   if (applet->priv->input != NULL) {
-    g_signal_connect(G_OBJECT(applet->priv->input), "control-added",
+    g_signal_connect(applet->priv->input, "control-added",
                      G_CALLBACK(on_input_stream_control_added), applet);
-    g_signal_connect(G_OBJECT(applet->priv->input), "control-removed",
+    g_signal_connect(applet->priv->input, "control-removed",
                      G_CALLBACK(on_input_stream_control_removed), applet);
   }
 
@@ -366,12 +366,12 @@ static void gvc_applet_init(GvcApplet *applet) {
   mate_mixer_context_set_app_version(applet->priv->context, VERSION);
   mate_mixer_context_set_app_icon(applet->priv->context, APPLET_ICON);
 
-  g_signal_connect(G_OBJECT(applet->priv->context), "notify::state",
+  g_signal_connect(applet->priv->context, "notify::state",
                    G_CALLBACK(on_context_state_notify), applet);
-  g_signal_connect(G_OBJECT(applet->priv->context),
+  g_signal_connect(applet->priv->context,
                    "notify::default-input-stream",
                    G_CALLBACK(on_context_default_input_stream_notify), applet);
-  g_signal_connect(G_OBJECT(applet->priv->context),
+  g_signal_connect(applet->priv->context,
                    "notify::default-output-stream",
                    G_CALLBACK(on_context_default_output_stream_notify), applet);
 }

@@ -447,7 +447,7 @@ static void update_input_settings(GvcMixerDialog *dialog) {
 
   /* Enable level bar only if supported by the control */
   if (flags & MATE_MIXER_STREAM_CONTROL_HAS_MONITOR)
-    g_signal_connect(G_OBJECT(control), "monitor-value",
+    g_signal_connect(control, "monitor-value",
                      G_CALLBACK(on_stream_control_monitor_value), dialog);
 
   /* Get owning stream of the control */
@@ -540,7 +540,7 @@ static void set_input_stream(GvcMixerDialog *dialog, MateMixerStream *stream) {
     }
 
     /* Enable/disable the peak level monitor according to mute state */
-    g_signal_connect(G_OBJECT(stream), "notify::mute",
+    g_signal_connect(stream, "notify::mute",
                      G_CALLBACK(on_stream_control_mute_notify), dialog);
   }
 
@@ -814,9 +814,9 @@ static void add_stream(GvcMixerDialog *dialog, MateMixerStream *stream) {
   }
 
   // XXX find a way to disconnect when removed
-  g_signal_connect(G_OBJECT(stream), "control-added",
+  g_signal_connect(stream, "control-added",
                    G_CALLBACK(on_stream_control_added), dialog);
-  g_signal_connect(G_OBJECT(stream), "control-removed",
+  g_signal_connect(stream, "control-removed",
                    G_CALLBACK(on_stream_control_removed), dialog);
 }
 
@@ -1104,7 +1104,7 @@ static void add_device(GvcMixerDialog *dialog, MateMixerDevice *device) {
     if (G_LIKELY(active != NULL))
       profile_label = mate_mixer_switch_option_get_label(active);
 
-    g_signal_connect(G_OBJECT(profile_switch), "notify::active-option",
+    g_signal_connect(profile_switch, "notify::active-option",
                      G_CALLBACK(on_device_profile_active_option_notify),
                      dialog);
   }
@@ -1314,7 +1314,7 @@ static GtkWidget *create_stream_treeview(GvcMixerDialog *dialog,
 
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 
-  g_signal_connect(G_OBJECT(renderer), "toggled", G_CALLBACK(on_toggled),
+  g_signal_connect(renderer, "toggled", G_CALLBACK(on_toggled),
                    dialog);
 
   gtk_tree_view_insert_column_with_data_func(
@@ -1416,10 +1416,10 @@ static void on_device_selection_changed(GtkTreeSelection *selection,
     g_object_set(G_OBJECT(dialog->priv->hw_profile_combo), "button-label",
                  _("Test Speakers"), NULL);
 
-    g_signal_connect(G_OBJECT(dialog->priv->hw_profile_combo), "changing",
+    g_signal_connect(dialog->priv->hw_profile_combo, "changing",
                      G_CALLBACK(on_device_profile_changing), dialog);
 
-    g_signal_connect(G_OBJECT(dialog->priv->hw_profile_combo), "button-clicked",
+    g_signal_connect(dialog->priv->hw_profile_combo, "button-clicked",
                      G_CALLBACK(on_test_speakers_clicked), dialog);
 
     g_object_set_data_full(G_OBJECT(dialog->priv->hw_profile_combo), "device",
@@ -1509,7 +1509,7 @@ static GtkWidget *create_device_treeview(GvcMixerDialog *dialog,
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-  g_signal_connect(G_OBJECT(selection), "changed", on_changed, dialog);
+  g_signal_connect(selection, "changed", on_changed, dialog);
 
   store = gtk_list_store_new(HW_NUM_COLUMNS, G_TYPE_ICON, G_TYPE_STRING,
                              G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
@@ -1720,7 +1720,7 @@ static GObject *gvc_mixer_dialog_constructor(
 
   gtk_box_pack_start(GTK_BOX(main_vbox), self->priv->notebook, TRUE, TRUE, 0);
 
-  g_signal_connect(G_OBJECT(self->priv->notebook), "switch-page",
+  g_signal_connect(self->priv->notebook, "switch-page",
                    G_CALLBACK(on_notebook_switch_page), self);
 
   gtk_container_set_border_width(GTK_CONTAINER(self->priv->notebook), 5);
@@ -1962,26 +1962,26 @@ static void gvc_mixer_dialog_set_context(GvcMixerDialog *dialog,
                                          MateMixerContext *context) {
   dialog->priv->context = g_object_ref(context);
 
-  g_signal_connect(G_OBJECT(dialog->priv->context), "stream-added",
+  g_signal_connect(dialog->priv->context, "stream-added",
                    G_CALLBACK(on_context_stream_added), dialog);
-  g_signal_connect(G_OBJECT(dialog->priv->context), "stream-removed",
+  g_signal_connect(dialog->priv->context, "stream-removed",
                    G_CALLBACK(on_context_stream_removed), dialog);
 
-  g_signal_connect(G_OBJECT(dialog->priv->context), "device-added",
+  g_signal_connect(dialog->priv->context, "device-added",
                    G_CALLBACK(on_context_device_added), dialog);
-  g_signal_connect(G_OBJECT(dialog->priv->context), "device-removed",
+  g_signal_connect(dialog->priv->context, "device-removed",
                    G_CALLBACK(on_context_device_removed), dialog);
 
-  g_signal_connect(G_OBJECT(dialog->priv->context),
+  g_signal_connect(dialog->priv->context,
                    "notify::default-input-stream",
                    G_CALLBACK(on_context_default_input_stream_notify), dialog);
-  g_signal_connect(G_OBJECT(dialog->priv->context),
+  g_signal_connect(dialog->priv->context,
                    "notify::default-output-stream",
                    G_CALLBACK(on_context_default_output_stream_notify), dialog);
 
-  g_signal_connect(G_OBJECT(dialog->priv->context), "stored-control-added",
+  g_signal_connect(dialog->priv->context, "stored-control-added",
                    G_CALLBACK(on_context_stored_control_added), dialog);
-  g_signal_connect(G_OBJECT(dialog->priv->context), "stored-control-removed",
+  g_signal_connect(dialog->priv->context, "stored-control-removed",
                    G_CALLBACK(on_context_stored_control_removed), dialog);
 
   dialog->priv->backend_flags = mate_mixer_context_get_backend_flags(context);

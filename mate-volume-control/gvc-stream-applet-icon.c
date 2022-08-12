@@ -187,7 +187,7 @@ void gvc_stream_applet_icon_volume_control(GvcStreamAppletIcon *icon) {
     dialog = gtk_message_dialog_new(
         NULL, 0, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
         _("Failed to start Sound Preferences: %s"), error->message);
-    g_signal_connect(G_OBJECT(dialog), "response",
+    g_signal_connect(dialog, "response",
                      G_CALLBACK(gtk_widget_destroy), NULL);
     gtk_widget_show(dialog);
     g_error_free(error);
@@ -461,9 +461,9 @@ void gvc_stream_applet_icon_set_control(GvcStreamAppletIcon *icon,
   icon->priv->control = control;
 
   if (icon->priv->control != NULL) {
-    g_signal_connect(G_OBJECT(icon->priv->control), "notify::volume",
+    g_signal_connect(icon->priv->control, "notify::volume",
                      G_CALLBACK(on_stream_control_volume_notify), icon);
-    g_signal_connect(G_OBJECT(icon->priv->control), "notify::mute",
+    g_signal_connect(icon->priv->control, "notify::mute",
                      G_CALLBACK(on_stream_control_mute_notify), icon);
 
     // XXX when no stream set some default icon and "unset" dock
@@ -579,11 +579,11 @@ static void gvc_stream_applet_icon_init(GvcStreamAppletIcon *icon) {
   icon->priv->image = GTK_IMAGE(gtk_image_new());
   gtk_container_add(GTK_CONTAINER(icon), GTK_WIDGET(icon->priv->image));
 
-  g_signal_connect(GTK_WIDGET(icon), "button-press-event",
+  g_signal_connect(icon, "button-press-event",
                    G_CALLBACK(on_applet_icon_button_press), icon);
-  g_signal_connect(GTK_WIDGET(icon), "scroll-event",
+  g_signal_connect(icon, "scroll-event",
                    G_CALLBACK(on_applet_icon_scroll_event), icon);
-  g_signal_connect(GTK_WIDGET(icon), "notify::visible",
+  g_signal_connect(icon, "notify::visible",
                    G_CALLBACK(on_applet_icon_visible_notify), NULL);
 
   /* Create the dock window */
@@ -591,15 +591,15 @@ static void gvc_stream_applet_icon_init(GvcStreamAppletIcon *icon) {
 
   gtk_window_set_decorated(GTK_WINDOW(icon->priv->dock), FALSE);
 
-  g_signal_connect(G_OBJECT(icon->priv->dock), "button-press-event",
+  g_signal_connect(icon->priv->dock, "button-press-event",
                    G_CALLBACK(on_dock_button_press), icon);
-  g_signal_connect(G_OBJECT(icon->priv->dock), "key-release-event",
+  g_signal_connect(icon->priv->dock, "key-release-event",
                    G_CALLBACK(on_dock_key_release), icon);
-  g_signal_connect(G_OBJECT(icon->priv->dock), "scroll-event",
+  g_signal_connect(icon->priv->dock, "scroll-event",
                    G_CALLBACK(on_dock_scroll_event), icon);
-  g_signal_connect(G_OBJECT(icon->priv->dock), "grab-notify",
+  g_signal_connect(icon->priv->dock, "grab-notify",
                    G_CALLBACK(on_dock_grab_notify), icon);
-  g_signal_connect(G_OBJECT(icon->priv->dock), "grab-broken-event",
+  g_signal_connect(icon->priv->dock, "grab-broken-event",
                    G_CALLBACK(on_dock_grab_broken_event), icon);
 
   frame = gtk_frame_new(NULL);

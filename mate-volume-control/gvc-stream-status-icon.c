@@ -173,7 +173,7 @@ static void on_menu_activate_open_volume_control(GtkMenuItem *item,
     dialog = gtk_message_dialog_new(
         NULL, 0, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
         _("Failed to start Sound Preferences: %s"), error->message);
-    g_signal_connect(G_OBJECT(dialog), "response",
+    g_signal_connect(dialog, "response",
                      G_CALLBACK(gtk_widget_destroy), NULL);
     gtk_widget_show(dialog);
     g_error_free(error);
@@ -216,7 +216,7 @@ static void on_status_icon_popup_menu(GtkStatusIcon *status_icon, guint button,
   }
   item = gtk_image_menu_item_new_with_mnemonic(label);
   gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(item), image);
-  g_signal_connect(G_OBJECT(item), "activate", G_CALLBACK(on_menu_mute_toggled),
+  g_signal_connect(item, "activate", G_CALLBACK(on_menu_mute_toggled),
                    icon);
 
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
@@ -226,7 +226,7 @@ static void on_status_icon_popup_menu(GtkStatusIcon *status_icon, guint button,
                                        GTK_ICON_SIZE_MENU);
   gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(item), image);
 
-  g_signal_connect(G_OBJECT(item), "activate",
+  g_signal_connect(item, "activate",
                    G_CALLBACK(on_menu_activate_open_volume_control), icon);
 
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
@@ -466,9 +466,9 @@ void gvc_stream_status_icon_set_control(GvcStreamStatusIcon *icon,
   icon->priv->control = control;
 
   if (icon->priv->control != NULL) {
-    g_signal_connect(G_OBJECT(icon->priv->control), "notify::volume",
+    g_signal_connect(icon->priv->control, "notify::volume",
                      G_CALLBACK(on_stream_control_volume_notify), icon);
-    g_signal_connect(G_OBJECT(icon->priv->control), "notify::mute",
+    g_signal_connect(icon->priv->control, "notify::mute",
                      G_CALLBACK(on_stream_control_mute_notify), icon);
 
     // XXX when no stream set some default icon and "unset" dock
@@ -578,15 +578,15 @@ static void gvc_stream_status_icon_init(GvcStreamStatusIcon *icon) {
 
   icon->priv = gvc_stream_status_icon_get_instance_private(icon);
 
-  g_signal_connect(G_OBJECT(icon), "activate",
+  g_signal_connect(icon, "activate",
                    G_CALLBACK(on_status_icon_activate), icon);
-  g_signal_connect(G_OBJECT(icon), "button-press-event",
+  g_signal_connect(icon, "button-press-event",
                    G_CALLBACK(on_status_icon_button_press), icon);
-  g_signal_connect(G_OBJECT(icon), "popup-menu",
+  g_signal_connect(icon, "popup-menu",
                    G_CALLBACK(on_status_icon_popup_menu), icon);
-  g_signal_connect(G_OBJECT(icon), "scroll-event",
+  g_signal_connect(icon, "scroll-event",
                    G_CALLBACK(on_status_icon_scroll_event), icon);
-  g_signal_connect(G_OBJECT(icon), "notify::visible",
+  g_signal_connect(icon, "notify::visible",
                    G_CALLBACK(on_status_icon_visible_notify), NULL);
 
   /* Create the dock window */
@@ -594,15 +594,15 @@ static void gvc_stream_status_icon_init(GvcStreamStatusIcon *icon) {
 
   gtk_window_set_decorated(GTK_WINDOW(icon->priv->dock), FALSE);
 
-  g_signal_connect(G_OBJECT(icon->priv->dock), "button-press-event",
+  g_signal_connect(icon->priv->dock, "button-press-event",
                    G_CALLBACK(on_dock_button_press), icon);
-  g_signal_connect(G_OBJECT(icon->priv->dock), "key-release-event",
+  g_signal_connect(icon->priv->dock, "key-release-event",
                    G_CALLBACK(on_dock_key_release), icon);
-  g_signal_connect(G_OBJECT(icon->priv->dock), "scroll-event",
+  g_signal_connect(icon->priv->dock, "scroll-event",
                    G_CALLBACK(on_dock_scroll_event), icon);
-  g_signal_connect(G_OBJECT(icon->priv->dock), "grab-notify",
+  g_signal_connect(icon->priv->dock, "grab-notify",
                    G_CALLBACK(on_dock_grab_notify), icon);
-  g_signal_connect(G_OBJECT(icon->priv->dock), "grab-broken-event",
+  g_signal_connect(icon->priv->dock, "grab-broken-event",
                    G_CALLBACK(on_dock_grab_broken_event), icon);
 
   frame = gtk_frame_new(NULL);

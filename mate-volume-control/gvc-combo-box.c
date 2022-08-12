@@ -146,7 +146,7 @@ static void gvc_combo_box_set_switch(GvcComboBox *combobox,
     options = options->next;
   }
 
-  g_signal_connect(G_OBJECT(swtch), "notify::active-option",
+  g_signal_connect(swtch, "notify::active-option",
                    G_CALLBACK(on_switch_active_option_notify), combobox);
 }
 
@@ -325,9 +325,9 @@ static void gvc_combo_box_init(GvcComboBox *combobox) {
 
   gtk_container_add(GTK_CONTAINER(frame), combobox->priv->drop_box);
 
-  g_signal_connect(G_OBJECT(combobox->priv->combobox), "changed",
+  g_signal_connect(combobox->priv->combobox, "changed",
                    G_CALLBACK(on_combo_box_changed), combobox);
-  g_signal_connect(G_OBJECT(combobox->priv->button), "clicked",
+  g_signal_connect(combobox->priv->button, "clicked",
                    G_CALLBACK(on_combo_box_button_clicked), combobox);
 
   gtk_widget_set_no_show_all(combobox->priv->button, TRUE);

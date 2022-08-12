@@ -87,7 +87,7 @@ static void create_scale_box(GvcBalanceBar *bar) {
 
   gtk_widget_add_events(bar->priv->scale, GDK_SCROLL_MASK);
 
-  g_signal_connect(G_OBJECT(bar->priv->scale), "scroll-event",
+  g_signal_connect(bar->priv->scale, "scroll-event",
                    G_CALLBACK(on_scale_scroll_event), bar);
 
   if (bar->priv->size_group != NULL) {
@@ -236,15 +236,15 @@ static void gvc_balance_bar_set_control(GvcBalanceBar *bar,
 
   switch (bar->priv->btype) {
     case BALANCE_TYPE_RL:
-      g_signal_connect(G_OBJECT(bar->priv->control), "notify::balance",
+      g_signal_connect(bar->priv->control, "notify::balance",
                        G_CALLBACK(on_balance_value_changed), bar);
       break;
     case BALANCE_TYPE_FR:
-      g_signal_connect(G_OBJECT(bar->priv->control), "notify::fade",
+      g_signal_connect(bar->priv->control, "notify::fade",
                        G_CALLBACK(on_balance_value_changed), bar);
       break;
     case BALANCE_TYPE_LFE:
-      g_signal_connect(G_OBJECT(bar->priv->control), "notify::volume",
+      g_signal_connect(bar->priv->control, "notify::volume",
                        G_CALLBACK(on_balance_value_changed), bar);
       break;
   }
@@ -270,7 +270,7 @@ static void gvc_balance_bar_set_balance_type(GvcBalanceBar *bar,
   bar->priv->btype = btype;
   bar->priv->adjustment = GTK_ADJUSTMENT(g_object_ref_sink(adjustment));
 
-  g_signal_connect(G_OBJECT(adjustment), "value-changed",
+  g_signal_connect(adjustment, "value-changed",
                    G_CALLBACK(on_adjustment_value_changed), bar);
 
   switch (btype) {
