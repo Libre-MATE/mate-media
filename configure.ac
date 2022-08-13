@@ -2,6 +2,7 @@ AC_INIT([mate-media],
         [1.26.0],
         [https://github.com/Libre-MATE/mate-media])
 AC_PREREQ(2.60)
+AC_COPYRIGHT([Copyright (C) 2022 Libre MATE])
 
 AC_CONFIG_AUX_DIR([build-aux])
 
