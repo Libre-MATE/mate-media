@@ -21,7 +21,7 @@ CLEANFILES = mate-sounds-default.xml mate-sounds-default.xml.in
 EXTRA_DIST = $(sound_DATA) mate-sounds-default.xml.in.in
 
 mate-sounds-default.xml.in: mate-sounds-default.xml.in.in Makefile
-	$(AM_V_GEN)sed -e 's^\@datadir\@^$(datadir)^g' < $(srcdir)/mate-sounds-default.xml.in.in > mate-sounds-default.xml.in.tmp \
+	$(AM_V_GEN)$(SED) -e 's^\@datadir\@^$(datadir)^g' < $(srcdir)/mate-sounds-default.xml.in.in > mate-sounds-default.xml.in.tmp \
 	&& mv mate-sounds-default.xml.in.tmp mate-sounds-default.xml.in
 
 MAINTAINERCLEANFILES = \

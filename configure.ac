@@ -20,6 +20,7 @@ AM_PROG_CC_C_O
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+AC_PROG_SED
 LT_INIT
 
 # Checks for typedefs, structures, and compiler characteristics.
