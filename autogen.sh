@@ -5,6 +5,8 @@ srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
 PKG_NAME="mate-media"
+REQUIRED_AUTOMAKE_VERSION=1.11
+REQUIRED_AUTORECONF_VERSION=2.60
 REQUIRED_INTLTOOL_VERSION=0.35
 USE_COMMON_DOC_BUILD=yes
 
