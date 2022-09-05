@@ -24,10 +24,14 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n.h>
+#ifdef ENABLE_NLS
+#include <locale.h>
+#endif /* ENABLE_NLS */
+
 #include <gio/gio.h>
 #include <glib-object.h>
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <libintl.h>
 #include <libmatemixer/matemixer.h>
@@ -47,9 +51,12 @@ int main(int argc, char **argv) {
       {"debug", 'd', 0, G_OPTION_ARG_NONE, &debug, N_("Enable debug"), NULL},
       {NULL, 0, 0, G_OPTION_ARG_NONE, NULL, NULL, NULL}};
 
+#ifdef ENABLE_NLS
+  setlocale(LC_ALL, "");
   bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
   bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
   textdomain(GETTEXT_PACKAGE);
+#endif /* ENABLE_NLS */
 
   gtk_init_with_args(&argc, &argv, _(" — MATE Volume Control Status Icon"),
                      entries, GETTEXT_PACKAGE, &error);

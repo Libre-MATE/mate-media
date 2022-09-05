@@ -25,10 +25,14 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n.h>
+#ifdef ENABLE_NLS
+#include <locale.h>
+#endif /* ENABLE_NLS */
+
 #include <gio/gio.h>
 #include <glib-object.h>
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <libintl.h>
 #include <libmatemixer/matemixer.h>
@@ -41,9 +45,12 @@ static gboolean applet_main(MatePanelApplet* applet_widget) {
   GvcApplet* applet;
   GApplication* app = NULL;
 
+#ifdef ENABLE_NLS
+  setlocale(LC_ALL, "");
   bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
   bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
   textdomain(GETTEXT_PACKAGE);
+#endif /* ENABLE_NLS */
 
   app = g_application_new(GVC_APPLET_DBUS_NAME, G_APPLICATION_FLAGS_NONE);
 
